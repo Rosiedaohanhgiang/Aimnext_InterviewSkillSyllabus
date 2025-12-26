@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIMNEXT Syllabus: Master Interviewer (Japanese Expert Edition)</title>
+    
+    <!-- Added Noto Sans JP for Japanese support -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&family=Noto+Sans+JP:wght@300;400;500;700;900&family=Noto+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        aim: {
+                            blue: '#005baa',
+                            dark: '#1a1a1a',
+                            light: '#f8f9fa',
+                            accent: '#c8102e',
+                            gold: '#b4975a',
+                            green: '#10b981'
+                        }
+                    },
+                    fontFamily: { 
+                        sans: ['Noto Sans JP', 'Noto Sans', 'sans-serif'], 
+                        serif: ['Noto Serif', 'serif'] 
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body { background-color: #e5e7eb; color: #333; font-family: 'Noto Sans JP', sans-serif; line-height: 1.8; }
+        
+        .paper {
+            background: white;
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 60px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+            border-top: 8px solid #005baa;
+        }
+
+        .module-section {
+            border-left: 4px solid #e5e7eb;
+            padding-left: 2rem;
+            margin-bottom: 2rem;
+            position: relative;
+            transition: all 0.3s;
+        }
+        .module-section:hover { border-left-color: #005baa; }
+        
+        /* Interactive Detail Box */
+        .detail-box {
+            display: none; /* Hidden by default */
+            background-color: #f8fafc;
+            border: 1px dashed #005baa;
+            padding: 20px;
+            margin-top: 15px;
+            border-radius: 8px;
+            animation: fadeIn 0.4s ease;
+        }
+        .detail-box.active { display: block; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Button Styling */
+        .btn-expand {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #005baa;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            margin-top: 10px;
+            padding: 6px 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: 20px;
+            background: #fff;
+            transition: all 0.2s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .btn-expand:hover { background: #eff6ff; border-color: #005baa; transform: translateY(-1px); }
+
+        /* Tags */
+        .tag { font-size: 0.65rem; font-weight: 800; text-transform: uppercase; padding: 4px 8px; border-radius: 4px; display: inline-block; margin-bottom: 8px; letter-spacing: 0.05em; }
+        .tag-pain { background: #fee2e2; color: #991b1b; }
+        .tag-mindset { background: #fffbeb; color: #92400e; }
+        .tag-tool { background: #eff6ff; color: #1e40af; }
+        
+        /* Deep Dive Styles (Pills) */
+        .pill-section { margin-top: 10px; padding: 15px; background: white; border-radius: 6px; border: 1px solid #f1f5f9; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+        .pill-title { font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+        .pill-content { font-size: 0.9rem; color: #4b5563; }
+        
+        .k-color { color: #005baa; } /* Knowledge - Blue */
+        .s-color { color: #c8102e; } /* Skill - Red */
+        .t-color { color: #10b981; } /* Tool - Green */
+
+        /* Visuals within Details */
+        .star-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; text-align: center; font-size: 0.75rem; color: white; margin-bottom: 10px; }
+        .star-s { background: #64748b; padding: 8px; border-radius: 4px; }
+        .star-t { background: #475569; padding: 8px; border-radius: 4px; }
+        .star-a { background: #c8102e; padding: 8px; border-radius: 4px; font-weight: bold; transform: scale(1.05); box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .star-r { background: #334155; padding: 8px; border-radius: 4px; }
+
+        .scale-grid { display: flex; justify-content: space-between; font-size: 0.7rem; margin-top: 5px; text-align: center; gap: 4px; }
+        .scale-item { flex: 1; padding: 8px 2px; border: 1px solid #e2e8f0; border-radius: 4px; background: #fff; }
+        .scale-5 { background: #005baa; color: white; border-color: #005baa; font-weight: bold; }
+
+        /* Compare Table */
+        .compare-table { width: 100%; font-size: 0.85rem; border-collapse: collapse; margin-top: 8px; }
+        .compare-table th { text-align: left; padding: 4px; border-bottom: 1px solid #ddd; font-size: 0.7rem; color: #999; }
+        .compare-table td { padding: 6px 4px; vertical-align: top; border-bottom: 1px dashed #eee; }
+
+        /* Calculator Input */
+        input[type="number"] { background: #f8fafc; border: 1px solid #cbd5e1; color: #005baa; font-weight: 700; text-align: right; width: 100%; padding: 0.5rem; border-radius: 2px; }
+    </style>
+</head>
+<body>
+
+    <div class="paper">
+        
+        <!-- Header -->
+        <div class="flex justify-between items-end border-b-2 border-gray-100 pb-8 mb-12">
+            <div class="flex items-center gap-5">
+                <div class="w-14 h-14 bg-aim-blue flex items-center justify-center text-white font-bold rounded shadow-lg text-3xl">A</div>
+                <div>
+                    <h1 class="font-bold text-3xl tracking-tight text-aim-blue leading-none">AIMNEXT</h1>
+                    <span class="text-xs text-gray-500 uppercase tracking-[0.3em] block mt-2 font-bold">Training & Consulting</span>
+                </div>
+            </div>
+            <div class="text-right hidden md:block">
+                <p class="text-sm font-bold text-aim-dark uppercase border-b border-aim-accent inline-block pb-1 mb-1">公開研修プログラム</p>
+                <p class="text-xs text-gray-500">講師: ロージー・ダオ (Rosie Dao)</p>
+            </div>
+        </div>
+
+        <div class="text-center mb-16">
+            <h1 class="text-4xl md:text-5xl font-bold font-serif text-aim-dark mb-6 leading-tight">
+                管理職のための<br>
+                <span class="text-aim-blue">実践的採用面接スキル</span>
+            </h1>
+            <p class="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed italic">
+                「日本基準の採用プロセスを体系化：正確・科学的・効率的」
+            </p>
+        </div>
+
+        <!-- Business Case Calculator -->
+        <div class="bg-gray-50 p-8 rounded border border-gray-200 mb-16 shadow-inner relative overflow-hidden">
+            <div class="absolute top-0 right-0 bg-aim-accent text-white text-xs font-bold px-3 py-1 rounded-bl">リスク管理</div>
+            <h3 class="font-bold text-aim-dark mb-6 flex items-center gap-2 text-lg">
+                <i class="fas fa-calculator text-aim-blue"></i> 1. 採用のROI (ビジネスケース)
+            </h3>
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <p class="text-sm text-gray-600 mb-4 text-justify">
+                        ミスマッチ採用（Bad Hire）のコストには、無駄になった給与、採用経費、そして機会損失が含まれます。実際の損失額を計算してみましょう。
+                    </p>
+                    <div class="bg-white p-5 border border-gray-300 rounded shadow-sm">
+                        <label class="block text-xs font-bold text-gray-500 uppercase mb-2">月給を入力 (単位: 百万VND)</label>
+                        <input type="number" id="salary-input" value="25" oninput="calculateCost()">
+                    </div>
+                </div>
+                <div class="space-y-4">
+                    <div class="flex justify-between text-sm border-b border-dashed border-gray-300 pb-2"><span class="text-gray-600">無駄になった給与 (2ヶ月分):</span><span id="cost-salary" class="font-bold">50.0</span></div>
+                    <div class="flex justify-between text-sm border-b border-dashed border-gray-300 pb-2"><span class="text-gray-600">採用＆オンボーディング費:</span><span id="cost-hiring" class="font-bold">60.0</span></div>
+                    <div class="flex justify-between text-sm border-b border-dashed border-gray-300 pb-2"><span class="text-gray-600">機会損失 (Opportunity Cost):</span><span id="cost-lost" class="font-bold">50.0</span></div>
+                    <div class="pt-2 flex justify-between items-center bg-white p-3 rounded border border-aim-accent">
+                        <span class="font-bold text-aim-accent text-sm uppercase">損失総額:</span>
+                        <span class="font-bold text-aim-accent text-2xl" id="total-loss">160.0 百万</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="font-bold text-2xl text-aim-dark mb-10 border-b-2 border-aim-blue pb-2 inline-block">
+            2. カリキュラム詳細
+        </h2>
+
+        <div class="mb-16">
+            <div class="inline-block bg-aim-dark text-white px-5 py-2 font-bold text-sm mb-10 rounded shadow tracking-widest">DAY 1: 思考法とコアスキル</div>
+
+            <!-- Module 1 -->
+            <div class="module-section">
+                <h4 class="text-xl font-bold text-aim-blue mb-2">Module 1: 面接官の真の役割</h4>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div>
+                        <span class="tag tag-pain">課題</span>
+                        <p class="text-sm text-gray-700">「ゲートキーパー（門番）」的な思考は候補者に圧力を与え、採用ブランド（Employer Branding）を毀損します。</p>
+                    </div>
+                    <div>
+                        <span class="tag tag-mindset">解決策</span>
+                        <ul class="text-sm text-gray-600 list-disc list-inside">
+                            <li><strong>「タレントパートナー」</strong>への移行。</li>
+                            <li><strong>候補者体験 (CX)</strong>：面接はマーケティングの接点である。</li>
+                        </ul>
+                        <button class="btn-expand" onclick="toggleDetail('d1')"><i class="fas fa-search-plus"></i> 詳細: Why & How</button>
+                    </div>
+                </div>
+                
+                <div id="d1" class="detail-box">
+                    <!-- What & Why -->
+                    <div class="pill-section">
+                        <div class="pill-title k-color"><i class="fas fa-book"></i> WHAT & WHY (本質と理由)</div>
+                        <ul class="text-sm text-gray-700 list-disc list-inside space-y-1 pill-content">
+                            <li><strong>What:</strong> 「選んでやる（上から目線）」から「対等なパートナー（Win-Win）」への意識改革。採用とは「仕事を売る（Selling the Job）」行為です。</li>
+                            <li><strong>Why:</strong> 候補者の83%は、悪い面接体験を友人に共有します。1人の候補者を不快にさせることは、将来の10人の顧客を失うことと同義です。</li>
+                        </ul>
+                    </div>
+                    <!-- How & Principles -->
+                    <div class="pill-section">
+                        <div class="pill-title s-color"><i class="fas fa-bolt"></i> HOW (実践方法)</div>
+                        <ul class="text-sm text-gray-700 list-disc list-inside space-y-1 pill-content">
+                            <li><strong>最初の5分の原則:</strong> ラポール（信頼関係）形成が面接の成否の50%を決めます。</li>
+                            <li><strong>秘訣:</strong> 必ず15分前にはレジュメを読むこと。「自己紹介してください」と事務的に言うのではなく、「CVを拝見して〇〇のプロジェクトに感銘を受けました。詳しく教えていただけますか？」と敬意を示して開始します。</li>
+                        </ul>
+                    </div>
+                    <!-- Do & Don't -->
+                    <div class="pill-section">
+                        <div class="pill-title t-color"><i class="fas fa-check-circle"></i> DO & DON'T (是と非)</div>
+                        <table class="compare-table">
+                            <tr>
+                                <th width="50%">DO (タレントパートナー) <i class="fas fa-check text-green-500"></i></th>
+                                <th>DON'T (ゲートキーパー) <i class="fas fa-times text-red-500"></i></th>
+                            </tr>
+                            <tr>
+                                <td>RJP (Realistic Job Preview): 仕事の厳しさも含め、ありのままの情報を伝える。</td>
+                                <td>圧迫面接 (Stress Interview): 粗探しに終始し、候補者を追い詰める。</td>
+                            </tr>
+                            <tr>
+                                <td>合否に関わらず結果を通知する。</td>
+                                <td>サイレントお祈り (Ghosting): 不採用の場合に連絡を絶つ。</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Module 2 -->
+            <div class="module-section">
+                <h4 class="text-xl font-bold text-aim-blue mb-2">Module 2: 評価バイアスと回避策</h4>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div>
+                        <span class="tag tag-pain">課題</span>
+                        <p class="text-sm text-gray-700">「直感（Gut feeling）」や「自分に似た人」を好む傾向により、判断を誤る。</p>
+                    </div>
+                    <div>
+                        <span class="tag tag-tool">ツール</span>
+                        <ul class="text-sm text-gray-600 list-disc list-inside">
+                            <li><strong>スコアカード:</strong> 構造化された評価シート。</li>
+                            <li><strong>データ記録:</strong> 発言の逐語録 (Verbatim)。</li>
+                        </ul>
+                        <button class="btn-expand" onclick="toggleDetail('d2')"><i class="fas fa-brain"></i> 解読: 4大バイアス</button>
+                    </div>
+                </div>
+
+                <div id="d2" class="detail-box">
+                    <!-- What & Why -->
+                    <div class="pill-section">
+                        <div class="pill-title k-color"><i class="fas fa-brain"></i> WHAT & WHY (脳の仕組み)</div>
+                        <p class="pill-content mb-2">人間は論理的な「システム2」ではなく、直感的な「システム1」で判断しがちです。よくある罠：</p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-2 pill-content">
+                            <div class="bg-red-50 p-2 rounded border border-red-100 text-xs">
+                                <strong>1. ハロー効果 (Halo Effect):</strong> 一つの良い点（学歴や容姿）を見て、能力全てを高く評価してしまう。
+                            </div>
+                            <div class="bg-red-50 p-2 rounded border border-red-100 text-xs">
+                                <strong>2. ホーン効果 (Horn Effect):</strong> 小さな欠点（遅刻など）を見て、全能力を否定してしまう。
+                            </div>
+                            <div class="bg-red-50 p-2 rounded border border-red-100 text-xs">
+                                <strong>3. 類似性バイアス (Similarity):</strong> 自分と同郷、同じ趣味の人を「優秀だ」と錯覚する。
+                            </div>
+                            <div class="bg-red-50 p-2 rounded border border-red-100 text-xs">
+                                <strong>4. 確証バイアス (Confirmation):</strong> 最初の印象を裏付ける証拠ばかり探そうとする。
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- How to Fix -->
+                    <div class="pill-section">
+                        <div class="pill-title s-color"><i class="fas fa-shield-alt"></i> HOW (対策)</div>
+                        <ul class="text-sm text-gray-700 list-disc list-inside space-y-1 pill-content">
+                            <li><strong>原則:</strong> 「直感の遅延 (Delay Intuition)」。開始30分は結論を出さないと決めること。</li>
+                            <li><strong>ツール:</strong> 面接「前」に定義した定量的基準を持つスコアカードを使用する。</li>
+                            <li><strong>実践:</strong> 主観的な感想（「良い人そう」）ではなく、候補者の発言（事実）をメモする。</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Module 3: CBI DEEP DIVE -->
+            <div class="module-section">
+                <h4 class="text-xl font-bold text-aim-blue mb-2">Module 3: コンピテンシー面接 (CBI)</h4>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div>
+                        <span class="tag tag-mindset">核心</span>
+                        <p class="text-sm text-gray-700 mb-2"><strong>CBI (Competency Based Interview):</strong> 過去の行動は、将来の行動を予測する最良の指標である。</p>
+                    </div>
+                    <div>
+                        <span class="tag tag-tool">ツール</span>
+                        <ul class="text-sm text-gray-600 list-disc list-inside">
+                            <li>JD分析からK.S.A.Oへの変換。</li>
+                            <li>行動質問バンクの構築。</li>
+                        </ul>
+                        <button class="btn-expand text-aim-accent border-aim-accent" onclick="toggleDetail('d3')"><i class="fas fa-layer-group"></i> CLICK: K.S.A.O 詳細</button>
+                    </div>
+                </div>
+
+                <div id="d3" class="detail-box">
+                    
+                    <!-- KNOWLEDGE -->
+                    <div class="pill-section">
+                        <div class="pill-title k-color"><i class="fas fa-graduation-cap"></i> 1. KNOWLEDGE: 氷山モデル & KSAO</div>
+                        <p class="pill-content mb-2">従来の面接は氷山の一角（学歴・経験）しか見ていません。CBIは水面下（態度・動機）を見抜きます。</p>
+                        <div class="grid grid-cols-2 gap-4 mt-2">
+                            <div class="bg-blue-50 p-3 rounded text-xs border border-blue-100">
+                                <strong class="text-aim-blue block mb-1">K - Knowledge (知識)</strong>
+                                学習によって得たもの。<br><em>例：労働法の知識、英語力。</em>
+                            </div>
+                            <div class="bg-blue-50 p-3 rounded text-xs border border-blue-100">
+                                <strong class="text-aim-blue block mb-1">S - Skill (スキル)</strong>
+                                反復により習得した技能。<br><em>例：交渉術、Excel操作。</em>
+                            </div>
+                            <div class="bg-red-50 p-3 rounded text-xs border border-red-100">
+                                <strong class="text-aim-accent block mb-1">A - Ability (地頭/適性)</strong>
+                                先天的な基礎能力。<br><em>例：IQ、論理的思考力、ストレス耐性。</em>
+                            </div>
+                            <div class="bg-red-50 p-3 rounded text-xs border border-red-100">
+                                <strong class="text-aim-accent block mb-1">O - Other (態度/文化)</strong>
+                                最も変えにくい部分。<br><em>例：誠実さ、チームワーク、成長意欲。</em>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SKILL -->
+                    <div class="pill-section">
+                        <div class="pill-title s-color"><i class="fas fa-bolt"></i> 2. SKILL: JDから質問を作る技術</div>
+                        <p class="pill-content mb-2">JD（職務記述書）をそのまま読み上げて質問してはいけません。</p>
+                        <div class="bg-white p-3 border border-dashed border-gray-300 rounded text-xs space-y-2">
+                            <p class="font-bold text-gray-500 underline">Step 1: JDの分析</p>
+                            <p class="text-gray-600">JDの記載: 「気難しい他部署と連携し、データを収集する」</p>
+                            
+                            <p class="font-bold text-aim-blue underline">Step 2: コンピテンシーの特定</p>
+                            <p class="text-aim-blue">-> 必要な能力: <strong>説得力のあるコミュニケーション</strong> & <strong>対立解決力</strong>。</p>
+                            
+                            <p class="font-bold text-aim-accent underline">Step 3: 行動質問の作成</p>
+                            <p class="text-aim-accent">-> 質問: 「協力が得にくい同僚を説得してデータをもらう必要があった時のことを教えてください。具体的にどう行動しましたか？」</p>
+                        </div>
+                    </div>
+
+                    <!-- DO & DON'T -->
+                    <div class="pill-section">
+                        <div class="pill-title t-color"><i class="fas fa-check-double"></i> 3. DO & DON'T: 質問の種類</div>
+                        <table class="compare-table">
+                            <tr>
+                                <th width="50%">CBI (過去の行動を問う) <i class="fas fa-check text-green-500"></i></th>
+                                <th>Hypothetical (仮定を問う) <i class="fas fa-times text-red-500"></i></th>
+                            </tr>
+                            <tr>
+                                <td>「怒っている顧客に対応した時の話をしてください」</td>
+                                <td>「もし顧客が怒っていたら、<strong>どう対応しますか？</strong>」</td>
+                            </tr>
+                            <tr>
+                                <td>(事実: 記憶に基づいているため、嘘がつきにくい)</td>
+                                <td>(空想: 教科書通りの答えが返ってくるだけ)</td>
+                            </tr>
+                        </table>
+                        <p class="text-[10px] mt-2 text-gray-500 italic">*注: 「もし〜なら」の質問は、未経験者(Fresher)のポテンシャルを見る場合や、ケース面接でのみ有効です。</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Module 4: STAR DEEP DIVE -->
+            <div class="module-section">
+                <h4 class="text-xl font-bold text-aim-blue mb-2">Module 4: STARメソッドと嘘の見抜き方</h4>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div>
+                        <span class="tag tag-tool">S.T.A.R モデル</span>
+                        <p class="text-sm text-gray-700">証拠収集のフレームワーク。80%を Action（具体的な個人の行動）に費やすこと。</p>
+                    </div>
+                    <div>
+                        <span class="tag tag-know">心理学</span>
+                        <p class="text-sm text-gray-700"><strong>認知的負荷 (Cognitive Load)</strong> を利用して、話の矛盾を見抜く。</p>
+                        <button class="btn-expand text-aim-accent border-aim-accent" onclick="toggleDetail('d4')"><i class="fas fa-search"></i> CLICK: 深掘りの極意</button>
+                    </div>
+                </div>
+
+                <div id="d4" class="detail-box">
+                    
+                    <!-- KNOWLEDGE -->
+                    <div class="pill-section">
+                        <div class="pill-title k-color"><i class="fas fa-star"></i> 1. KNOWLEDGE: 正しいSTAR構造</div>
+                        <div class="star-container mb-2">
+                            <div class="star-grid">
+                                <div class="star-s"><strong>S</strong>ituation<br>状況 (10%)</div>
+                                <div class="star-t"><strong>T</strong>ask<br>課題 (10%)</div>
+                                <div class="star-a"><strong>A</strong>ction<br>行動 (60%)</div>
+                                <div class="star-r"><strong>R</strong>esult<br>結果 (20%)</div>
+                            </div>
+                        </div>
+                        <ul class="text-sm text-gray-700 list-disc list-inside space-y-1 pill-content">
+                            <li><strong>Why STAR?</strong> 候補者の話は発散しがちです。STARは話を論理的な構造に強制します。</li>
+                            <li><strong>60%の原則:</strong> 候補者がSとT（いかに状況が大変だったか）ばかり話す場合、話を遮ってでも A（あなたは何をしたか）を聞き出してください。</li>
+                        </ul>
+                    </div>
+
+                    <!-- SKILL -->
+                    <div class="pill-section">
+                        <div class="pill-title s-color"><i class="fas fa-crosshairs"></i> 2. SKILL: プロービング (深掘り質問)</div>
+                        <p class="pill-content mb-2">候補者は曖昧な言葉で能力を隠そうとします。「玉ねぎの皮むき」のように深掘りしましょう。</p>
+                        <div class="bg-gray-50 p-3 rounded space-y-2 text-sm border border-gray-200">
+                            <div class="flex gap-2">
+                                <div class="font-bold text-aim-accent min-w-[80px]">問題:</div>
+                                <div>候補者: 「私たちはプロジェクトを成功させました...」</div>
+                            </div>
+                            <div class="flex gap-2">
+                                <div class="font-bold text-aim-blue min-w-[80px]">深掘り 1:</div>
+                                <div>「ちょっと待ってください。その『私たち』は何人ですか？あなたの正確な役割は何でしたか？」</div>
+                            </div>
+                            <div class="flex gap-2">
+                                <div class="font-bold text-aim-blue min-w-[80px]">深掘り 2:</div>
+                                <div>「上司の指示ではなく、<strong>あなたが独自に下した</strong>最も困難な決断は何でしたか？」</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TOOL -->
+                    <div class="pill-section">
+                        <div class="pill-title t-color"><i class="fas fa-mask"></i> 3. TOOL: 嘘発見レーダー</div>
+                        <p class="pill-content mb-2 italic text-xs">原理: 嘘をつくことは、真実を話すより脳に負荷がかかります。脳を「オーバーロード」させましょう。</p>
+                        <table class="compare-table">
+                            <tr>
+                                <th>嘘の兆候 (Red Flags)</th>
+                                <th>解説と対処法</th>
+                            </tr>
+                            <tr>
+                                <td><strong>主語が "WE" (私たち)</strong></td>
+                                <td>個人の貢献度が低いことを隠すため、集団を主語にする。 -> 対処: 「もし当時の上司に電話したら、あなたの貢献度は何%だったと言うでしょうか？」</td>
+                            </tr>
+                            <tr>
+                                <td><strong>時制のジャンプ (Tense Hopping)</strong></td>
+                                <td>過去の話（〜しました）をしていたのに、急に現在形（〜するものです）に変わる。 -> 一般論に逃げている証拠。</td>
+                            </tr>
+                            <tr>
+                                <td><strong>回答が流暢すぎる</strong></td>
+                                <td>台本を丸暗記している。 -> 予期せぬ順序で質問したり、非常に細かいディテールを聞いて台本を崩す。</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-16">
+            <div class="inline-block bg-aim-blue text-white px-5 py-2 font-bold text-sm mb-10 rounded shadow tracking-widest">DAY 2: 実践トレーニングと意思決定</div>
+
+            <!-- Module 5 -->
+            <div class="module-section">
+                <h4 class="text-xl font-bold text-aim-blue mb-2">Module 5: プロフェッショナル面接の構造</h4>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div>
+                        <span class="tag tag-tool">5ステップ</span>
+                        <p class="text-sm text-gray-700">情報を漏らさないための標準化されたプロセス。</p>
+                    </div>
+                    <div>
+                        <span class="tag tag-mindset">営業スキル</span>
+                        <p class="text-sm text-gray-700">Buying（見極め）と Selling（惹きつけ）のバランス。</p>
+                        <button class="btn-expand" onclick="toggleDetail('d5')"><i class="fas fa-list-ol"></i> 詳細: チェックリスト</button>
+                    </div>
+                </div>
+
+                <div id="d5" class="detail-box">
+                    <div class="pill-section">
+                        <div class="pill-title t-color"><i class="fas fa-clipboard-check"></i> PROCESS: 標準5ステップ</div>
+                        <div class="space-y-4 text-sm text-gray-700 pill-content">
+                            <div class="border-l-4 border-aim-blue pl-3">
+                                <strong class="text-aim-blue block">1. 導入 & ラポール形成 (3-5分)</strong>
+                                <em>目的:</em> アイスブレイク。候補者がリラックスしてこそ、本音が出ます。<br>
+                                <em>Do:</em> 笑顔、水への配慮、アジェンダの共有。
+                            </div>
+                            <div class="border-l-4 border-aim-blue pl-3">
+                                <strong class="text-aim-blue block">2. 会社紹介 / Pitching (3分)</strong>
+                                <em>目的:</em> 会社の魅力付け (EVP)。<br>
+                                <em>Tip:</em> 長く話しすぎないこと。候補者がそれに合わせて答えを作ってしまうのを防ぐため。
+                            </div>
+                            <div class="border-l-4 border-aim-accent pl-3">
+                                <strong class="text-aim-accent block">3. 本題 - Execution (30-45分) - 最重要</strong>
+                                <em>目的:</em> データ収集。<br>
+                                <em>Action:</em> CBI/STARの実践。3-4つの主要コンピテンシーを深掘りする。
+                            </div>
+                            <div class="border-l-4 border-gray-400 pl-3">
+                                <strong class="text-gray-700 block">4. 逆質問 (5-10分)</strong>
+                                <em>目的:</em> 候補者の思考レベルの確認。<br>
+                                <em>秘密:</em> 質問の内容は、その人のレベルを反映します（優秀な人は課題や権限について聞き、そうでない人は残業や福利厚生ばかり聞く傾向があります）。
+                            </div>
+                            <div class="border-l-4 border-gray-400 pl-3">
+                                <strong class="text-gray-700 block">5. クロージング (2分)</strong>
+                                <em>目的:</em> 期待値コントロール。<br>
+                                <em>Do:</em> 今後のプロセスと連絡期限を明確に伝える。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Module 6 -->
+            <div class="module-section">
+                <h4 class="text-xl font-bold text-aim-blue mb-2">Module 6: ロールプレイング (面接道場)</h4>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div>
+                        <span class="tag tag-tool">メソッド</span>
+                        <p class="text-sm text-gray-700"><strong>Learning by Doing:</strong> 実際のケーススタディを使用。</p>
+                    </div>
+                    <div>
+                        <span class="tag tag-mindset">3つの役割</span>
+                        <p class="text-sm text-gray-700">面接官 - 候補者 - 観察者のローテーション。</p>
+                        <button class="btn-expand" onclick="toggleDetail('d6')"><i class="fas fa-users"></i> 詳細: 実践ガイド</button>
+                    </div>
+                </div>
+                <div id="d6" class="detail-box">
+                     <div class="pill-section">
+                        <div class="pill-title s-color"><i class="fas fa-play-circle"></i> HOW: ロールプレイの手順</div>
+                        <ul class="text-sm text-gray-700 list-disc list-inside space-y-1 pill-content">
+                            <li><strong>面接官 (Interviewer):</strong> 傾聴とメモ取りに集中。1つの質問につき最低3回は「深掘り」を行うこと。</li>
+                            <li><strong>候補者 (Candidate):</strong> 「秘密のカード」が渡されます（例：能力は高いが協調性がない人物）。面接官を試すために演技してください。</li>
+                            <li><strong>観察者 (Observer):</strong> 発言禁止。チェックリストに記入するのみ（誘導尋問をしていないか？話を遮っていないか？）。</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Module 7 & 8 -->
+            <div class="module-section">
+                <h4 class="text-xl font-bold text-aim-blue mb-2">Module 7 & 8: 意思決定とオファー</h4>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div>
+                        <span class="tag tag-tool">決定マトリクス</span>
+                        <p class="text-sm text-gray-700">Weighted Matrix: 重み付けによる客観的評価。</p>
+                    </div>
+                    <div>
+                        <span class="tag tag-outcome">クロージング</span>
+                        <p class="text-sm text-gray-700">評価会議 (Debrief)、ZOPA、BATNA、オンボーディング計画。</p>
+                        <button class="btn-expand" onclick="toggleDetail('d78')"><i class="fas fa-handshake"></i> 詳細: 交渉ツール</button>
+                    </div>
+                </div>
+
+                <div id="d78" class="detail-box">
+                    <!-- WHAT & WHY -->
+                    <div class="pill-section">
+                        <div class="pill-title k-color"><i class="fas fa-balance-scale"></i> 1. WHAT: 意思決定マトリクス</div>
+                        <p class="pill-content text-sm">採用会議での感情的な議論を避けるため、スコアを用います。</p>
+                        <p class="text-xs bg-yellow-50 p-2 mt-2 border border-yellow-200 text-yellow-800">
+                            <strong>HiPPO効果 (Highest Paid Person's Opinion):</strong> 最も給料が高い人（上司）の意見が通ってしまう現象。 -> <strong>対策:</strong> 会議の前に、各メンバーが独立して採点を完了させておくこと。
+                        </p>
+                    </div>
+
+                    <!-- HOW & TIPS -->
+                    <div class="pill-section">
+                        <div class="pill-title t-color"><i class="fas fa-file-contract"></i> 2. HOW: 給与交渉とオファー</div>
+                        <ul class="text-sm text-gray-700 list-disc list-inside space-y-1 pill-content">
+                            <li><strong>ZOPA (合意可能領域):</strong> 会社の予算(Max)と候補者の希望(Min)の重なる範囲。</li>
+                            <li><strong>BATNA (最良の代替案):</strong> もしこの候補者に断られたら、次点は誰か？強力なBATNAがあれば、自信を持って交渉できます。</li>
+                            <li><strong>Tip:</strong> 基本給 (Base Salary) だけで交渉しないこと。「トータル・リワード（賞与、福利厚生、研修機会、企業文化）」全体をパッケージとして提示し、説得します。</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="border-t-4 border-gray-100 pt-10 flex flex-col md:flex-row gap-8 items-start">
+            <div class="md:w-1/4 text-center">
+                <div class="w-36 h-36 bg-gray-200 rounded-full mx-auto mb-4 overflow-hidden border-4 border-white shadow-lg">
+                    <img src="https://ui-avatars.com/api/?name=Rosie+Dao&background=005baa&color=fff&size=200" class="w-full h-full object-cover">
+                </div>
+                <p class="font-bold text-lg text-aim-dark">Rosie Dao (ロージー・ダオ)</p>
+                <p class="text-xs text-gray-500 uppercase tracking-widest mt-1 font-bold">企業研修講師 / コンサルタント</p>
+            </div>
+            <div class="md:w-3/4">
+                <h4 class="text-xl font-bold text-aim-blue mb-3">AIMNEXT 専門パートナー</h4>
+                <p class="text-sm text-gray-600 mb-4 text-justify leading-relaxed">
+                    人材マネジメント分野で20年以上の実務経験を持つエキスパート。経営学博士課程（PhD Candidate）のアカデミックな背景と、多国籍企業の再構築コンサルティングの経験を融合させ、ベトナム市場に最適化された実践的なソリューションを提供します。
+                </p>
+            </div>
+        </div>
+
+        <div class="text-center mt-16 pt-8 border-t border-gray-200 text-xs text-gray-400">
+            <p>&copy; 2025 AIMNEXT Vietnam. Organized in partnership with Build Talents.</p>
+        </div>
+
+    </div>
+
+    <script>
+        // Toggle Function
+        function toggleDetail(id) {
+            const el = document.getElementById(id);
+            if (el.style.display === "block") {
+                el.style.display = "none";
+                el.classList.remove("active");
+            } else {
+                el.style.display = "block";
+                el.classList.add("active");
+            }
+        }
+
+        // Calculator
+        function calculateCost() {
+            const salary = parseFloat(document.getElementById('salary-input').value) || 0;
+            const salaryProbation = salary * 2; 
+            const hiringFee = salary * 12 * 0.2;
+            const opportunity = salary * 2;
+            const total = salaryProbation + hiringFee + opportunity;
+
+            // Using Vietnamese currency formatting convention but with Japanese text logic
+            document.getElementById('cost-salary').innerText = salaryProbation.toLocaleString('ja-JP', { maximumFractionDigits: 1 });
+            document.getElementById('cost-hiring').innerText = hiringFee.toLocaleString('ja-JP', { maximumFractionDigits: 1 });
+            document.getElementById('cost-lost').innerText = opportunity.toLocaleString('ja-JP', { maximumFractionDigits: 1 });
+            document.getElementById('total-loss').innerText = total.toLocaleString('ja-JP', { maximumFractionDigits: 1 }) + " 百万";
+        }
+        calculateCost();
+    </script>
+</body>
+</html>
